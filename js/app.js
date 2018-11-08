@@ -7,11 +7,15 @@ var Enemy = function() {
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
 
+    this.initialLocation();
+};
+
+Enemy.prototype.initialLocation = function () {
     this.x = -100;
     this.y = (Math.floor(Math.random() * 3) + 1) * 84 - 25;
     // played around with pixels (84 & 25) - hard to know where the center of the block and enemy is
-    this.dx = Math.floor(Math.random() * 100);
-};
+    this.dx = Math.floor(Math.random() * 250) + 100;
+}
 
 // Update the enemy's position, required method for game
 // Parameter: dt, a time delta between ticks
@@ -20,7 +24,11 @@ Enemy.prototype.update = function(dt) {
     // which will ensure the game runs at the same speed for
     // all computers.
 
-    this.x += this.dx * dt;
+    this.x += Math.floor(this.dx * dt);
+
+    if (this.x >= 505)
+        this.initialLocation();
+
 };
 
 // Draw the enemy on the screen, required method for game
@@ -43,7 +51,7 @@ class Player {
 // Place all enemy objects in an array called allEnemies
 
 var allEnemies = [];
-for (var i = 0; i < 10; i++) {
+for (var i = 0; i < 7; i++) {
     allEnemies.push(new Enemy());
 }
 
