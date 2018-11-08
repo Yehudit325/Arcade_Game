@@ -12,8 +12,8 @@ var Enemy = function() {
 
 Enemy.prototype.initialLocation = function () {
     this.x = -100;
-    this.y = (Math.floor(Math.random() * 3) + 1) * 84 - 25;
-    // played around with pixels (84 & 25) - hard to know where the center of the block and enemy is
+    this.y = (Math.floor(Math.random() * 3) + 1) * 83 - 25;
+    // played around with pixels (83 & 25) - hard to know where the center of the block and enemy is
     this.dx = Math.floor(Math.random() * 250) + 100;
 }
 
@@ -42,8 +42,26 @@ Enemy.prototype.render = function() {
 
 class Player {
     constructor() {
-        this.x = 505 / 2;
-        this.y = 606 - 50.5;
+        this.sprite = 'images/char-pink-girl.png';
+        this.initLoc();
+    }
+
+    initLoc() {
+        this.x = 505/2 - 101/2;
+        this.y = 83*6 - 120;
+    }
+
+    render() {
+        ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+    }
+
+    update() {
+    }
+
+    handleInput(key) {
+        this.xMove = 101;
+        this.yMove = 83;
+        if key
     }
 }
 
