@@ -61,7 +61,19 @@ class Player {
     handleInput(key) {
         this.xMove = 101;
         this.yMove = 83;
-        if key
+        if (key === 'left' && this.x - this.xMove >= 0)
+            this.x -= this.xMove;
+        if (key === 'right' && this.x + this.xMove <= 404)
+            this.x += this.xMove;
+        if (key === 'up' && this.y - this.yMove >= -37)
+            this.y -= this.yMove;
+        if (key === 'down' && this.y + this.yMove <= 378)
+            this.y += this.yMove;
+
+        if (this.y === -37) {
+            var _this = this;
+            setTimeout(function() {_this.initLoc(); }, 1000);
+        }
     }
 }
 
