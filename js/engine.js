@@ -79,7 +79,7 @@ var Engine = (function(global) {
      */
     function update(dt) {
         updateEntities(dt);
-        // checkCollisions();
+        checkCollisions();
     }
 
     /* This is called by the update function and loops through all of the
@@ -107,18 +107,19 @@ var Engine = (function(global) {
          * for that particular row of the game level.
          */
         var rowImages = [
-                'images/water-block.png',   // Top row is water
-                'images/stone-block.png',   // Row 1 of 3 of stone
-                'images/stone-block.png',   // Row 2 of 3 of stone
-                'images/stone-block.png',   // Row 3 of 3 of stone
-                'images/grass-block.png',   // Row 1 of 2 of grass
-                'images/grass-block.png'    // Row 2 of 2 of grass
+                // 'images/water-block.png',   // Top row is water
+                // 'images/stone-block.png',   // Row 1 of 3 of stone
+                // 'images/stone-block.png',   // Row 2 of 3 of stone
+                // 'images/stone-block.png',   // Row 3 of 3 of stone
+                // 'images/grass-block.png',   // Row 1 of 2 of grass
+                // 'images/grass-block.png'    // Row 2 of 2 of grass
 
-                // 'images/water-block.png',
-                // 'images/water-block.png',
-                // 'images/water-block.png',
-                // 'images/water-block.png',
-                // 'images/water-block.png',
+                'images/water-block.png',
+                'images/water-block.png',
+                'images/water-block.png',
+                'images/water-block.png',
+                'images/water-block.png',
+                'images/water-block.png'
             ],
             numRows = 6,
             numCols = 5,
@@ -142,6 +143,15 @@ var Engine = (function(global) {
                  */
                 ctx.drawImage(Resources.get(rowImages[row]), col * 101, row * 83);
             }
+        }
+
+        // personalization adding coral reefs into edges of water
+        for (col = 0; col < numCols; col++) {
+            ctx.drawImage(Resources.get('images/coral-reef.png'), col * 101, 0 + 45);
+        }
+
+        for (col = 0; col < numCols; col++) {
+            ctx.drawImage(Resources.get('images/coral-reef.png'), col * 101, 6 * 83 - 5);
         }
 
         renderEntities();
@@ -179,7 +189,10 @@ var Engine = (function(global) {
         'images/water-block.png',
         'images/grass-block.png',
         'images/enemy-bug.png',
-        'images/char-pink-girl.png'
+        'images/char-pink-girl.png',
+        'images/coral-reef.png',
+        'images/nemo.png',
+        'images/shark.png'
     ]);
     Resources.onReady(init);
 

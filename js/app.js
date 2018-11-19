@@ -5,16 +5,18 @@ var Enemy = function() {
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
-    this.sprite = 'images/enemy-bug.png';
+    this.sprite = 'images/shark.png';
+    this.width = 101; //not sure how to extract width of image automaticaly by property
+    this.height = 71;
 
     this.initialLocation();
 };
 
 Enemy.prototype.initialLocation = function () {
     this.x = -100;
-    this.y = (Math.floor(Math.random() * 3) + 1) * 83 - 25;
+    this.y = (Math.floor(Math.random() * 4) + 1) * 83 + 57;
     // played around with pixels (83 & 25) - hard to know where the center of the block and enemy is
-    this.dx = Math.floor(Math.random() * 250) + 100;
+    this.dx = Math.floor(Math.random() * 200) + 100;
 }
 
 // Update the enemy's position, required method for game
@@ -42,13 +44,16 @@ Enemy.prototype.render = function() {
 
 class Player {
     constructor() {
-        this.sprite = 'images/char-pink-girl.png';
+        this.sprite = 'images/nemo.png';
+        this.width = 80; //not sure how to extract width of image automaticaly by property
+        this.height = 61;
+
         this.initLoc();
     }
 
     initLoc() {
-        this.x = 505/2 - 101/2;
-        this.y = 83*6 - 120;
+        this.x = 505/2 - 80/2;
+        this.y = 83*7 - 100;
     }
 
     render() {
@@ -63,17 +68,18 @@ class Player {
         this.yMove = 83;
         if (key === 'left' && this.x - this.xMove >= 0)
             this.x -= this.xMove;
-        if (key === 'right' && this.x + this.xMove <= 404)
+        if (key === 'right' && this.x + this.xMove <= 505)
             this.x += this.xMove;
-        if (key === 'up' && this.y - this.yMove >= -37)
+        if (key === 'up' && this.y - this.yMove >= 66)
             this.y -= this.yMove;
-        if (key === 'down' && this.y + this.yMove <= 378)
+        if (key === 'down' && this.y + this.yMove <= 481)
             this.y += this.yMove;
 
-        if (this.y === -37) {
+        if (this.y === 66) {
             var _this = this;
-            setTimeout(function() {_this.initLoc(); }, 1000);
+            setTimeout(function() {_this.initLoc(); }, 500);
         }
+
     }
 }
 
@@ -81,12 +87,27 @@ class Player {
 // Place all enemy objects in an array called allEnemies
 
 var allEnemies = [];
-for (var i = 0; i < 7; i++) {
+for (var i = 0; i < 10; i++) {
     allEnemies.push(new Enemy());
 }
 
 // Place the player object in a variable called player
 var player = new Player();
+
+function checkCollisions() {
+    //handle collision
+    allEnemies.forEach(function(enemy) {
+        if (player.x < enemy.x + enemy.width && player.x + player.width > enemy.x &&
+        player.y < enemy.y + enemy.height && player.y + player.height > enemy.y)
+            player.initLoc();
+    });
+}
+
+// function win() {
+//     if (this.y === 66) {
+//
+//     }
+// }
 
 
 // This listens for key presses and sends the keys to your
